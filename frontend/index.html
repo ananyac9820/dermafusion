@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DermaFusion — AI Dermatological Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --space:   #25344F;
+  --slate:   #617891;
+  --tan:     #D5B893;
+  --coffee:  #6F4D38;
+  --caput:   #632024;
+  --cream:   #F5EFE6;
+  --warm:    #EDE4D6;
+  --text:    #2A1F15;
+  --muted:   #7A6A5A;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--text);
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 4rem;
+  background:rgba(245,239,230,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(111,77,56,0.15);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:700;
+  color:var(--space);letter-spacing:-0.5px;
+}
+.nav-logo span{color:var(--coffee)}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-links a{
+  text-decoration:none;font-size:0.75rem;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--coffee)}
+.nav-cta{
+  background:var(--space);color:var(--cream)!important;
+  padding:0.55rem 1.4rem;border-radius:2px;
+  letter-spacing:2px!important;
+  transition:background 0.2s!important;
+}
+.nav-cta:hover{background:var(--coffee)!important;color:var(--cream)!important}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:8rem 4rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 70% 40%, rgba(213,184,147,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 20% 80%, rgba(99,32,36,0.08) 0%, transparent 60%),
+    var(--cream);
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:0.04;
+  background-image:
+    linear-gradient(var(--space) 1px, transparent 1px),
+    linear-gradient(90deg, var(--space) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content{position:relative;max-width:680px}
+.hero-eyebrow{
+  font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--coffee);font-weight:500;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.8rem;
+}
+.hero-eyebrow::before{
+  content:'';width:32px;height:1px;background:var(--coffee);
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,7vw,6rem);
+  font-weight:700;line-height:0.95;
+  color:var(--space);margin-bottom:1.5rem;
+  letter-spacing:-2px;
+}
+.hero-title em{color:var(--coffee);font-style:italic}
+.hero-sub{
+  font-size:1.05rem;line-height:1.8;color:var(--muted);
+  max-width:520px;margin-bottom:2.5rem;font-weight:300;
+}
+.hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:0.7rem;
+  background:var(--space);color:var(--cream);
+  text-decoration:none;padding:1rem 2.2rem;
+  font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:500;border-radius:2px;
+  transition:all 0.25s;font-family:'Jost',sans-serif;
+  border:none;cursor:pointer;
+}
+.btn-primary:hover{background:var(--coffee);transform:translateY(-2px);box-shadow:0 8px 30px rgba(111,77,56,0.3)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:0.7rem;
+  background:transparent;color:var(--space);
+  text-decoration:none;padding:1rem 2.2rem;
+  font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:500;border-radius:2px;
+  border:1px solid rgba(37,52,79,0.3);
+  transition:all 0.25s;font-family:'Jost',sans-serif;
+}
+.btn-secondary:hover{border-color:var(--coffee);color:var(--coffee)}
+.hero-visual{
+  position:absolute;right:0;top:0;bottom:0;width:45%;
+  display:flex;align-items:center;justify-content:center;
+  padding:8rem 4rem 4rem 0;
+}
+.hero-card{
+  background:white;border-radius:8px;
+  box-shadow:0 40px 80px rgba(37,52,79,0.15);
+  padding:2rem;width:100%;max-width:380px;
+  position:relative;
+}
+.hero-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--tan),var(--coffee),var(--caput));
+  border-radius:8px 8px 0 0;
+}
+.card-label{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--slate);margin-bottom:1.2rem}
+.card-img-placeholder{
+  background:linear-gradient(135deg,var(--warm),var(--tan));
+  border-radius:4px;height:180px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.2rem;font-size:3rem;
+}
+.card-diagnosis{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:600;color:var(--space);
+}
+.card-badge{
+  display:inline-block;background:rgba(30,132,73,0.1);
+  color:#1E8449;border:1px solid rgba(30,132,73,0.3);
+  font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;
+  padding:0.3rem 0.7rem;border-radius:2px;margin:0.4rem 0 0.8rem;
+}
+.card-bar-wrap{height:4px;background:var(--warm);border-radius:2px;margin-bottom:0.4rem}
+.card-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--tan),var(--coffee))}
+.card-conf{font-size:0.7rem;color:var(--muted);display:flex;justify-content:space-between}
+.floating-tag{
+  position:absolute;background:white;border-radius:6px;
+  box-shadow:0 8px 30px rgba(37,52,79,0.15);
+  padding:0.7rem 1rem;font-size:0.7rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.tag-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tag-1{top:20%;right:-20px}
+.tag-2{bottom:25%;left:-40px}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:var(--space);color:var(--cream);
+  padding:2.5rem 4rem;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2rem;
+}
+.stat-item{text-align:center;border-right:1px solid rgba(255,255,255,0.1)}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:700;color:var(--tan);
+  line-height:1;
+}
+.stat-lbl{font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate);margin-top:0.3rem}
+
+/* ── HOW IT WORKS ── */
+.section{padding:6rem 4rem}
+.section-eyebrow{
+  font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--coffee);font-weight:500;margin-bottom:0.8rem;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem);font-weight:700;
+  color:var(--space);line-height:1.1;
+  margin-bottom:1rem;letter-spacing:-0.5px;
+}
+.section-sub{font-size:0.95rem;color:var(--muted);max-width:500px;line-height:1.8}
+.hiw-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5px;margin-top:4rem;
+  background:rgba(37,52,79,0.1);border-radius:4px;overflow:hidden;
+}
+.hiw-card{
+  background:var(--cream);padding:2.5rem;
+  transition:background 0.25s;
+}
+.hiw-card:hover{background:white}
+.hiw-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:700;color:var(--tan);
+  line-height:1;margin-bottom:1rem;
+}
+.hiw-title{font-size:1rem;font-weight:500;color:var(--space);margin-bottom:0.6rem}
+.hiw-text{font-size:0.85rem;color:var(--muted);line-height:1.8}
+.hiw-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(213,184,147,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:1.2rem;
+}
+
+/* ── CLASSES SECTION ── */
+.classes-section{
+  background:var(--space);padding:6rem 4rem;color:var(--cream);
+}
+.classes-section .section-title{color:var(--tan)}
+.classes-section .section-sub{color:var(--slate)}
+.classes-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;margin-top:3rem;
+  background:rgba(255,255,255,0.06);
+}
+.class-card{
+  background:rgba(37,52,79,0.8);padding:1.8rem;
+  transition:background 0.2s;cursor:default;
+}
+.class-card:hover{background:rgba(111,77,56,0.3)}
+.class-code{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--slate);margin-bottom:0.4rem}
+.class-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--tan);margin-bottom:0.4rem}
+.class-desc{font-size:0.8rem;color:var(--slate);line-height:1.6}
+.class-sev{
+  display:inline-block;font-size:0.6rem;letter-spacing:2px;
+  text-transform:uppercase;padding:0.25rem 0.6rem;
+  border-radius:2px;margin-top:0.8rem;
+}
+.sev-benign{background:rgba(30,132,73,0.15);color:#4CAF87;border:1px solid rgba(30,132,73,0.3)}
+.sev-monitor{background:rgba(111,77,56,0.2);color:#C4956A;border:1px solid rgba(111,77,56,0.4)}
+.sev-urgent{background:rgba(99,32,36,0.2);color:#E07070;border:1px solid rgba(99,32,36,0.4)}
+
+/* ── CTA SECTION ── */
+.cta-section{
+  padding:6rem 4rem;text-align:center;
+  background:linear-gradient(135deg,var(--warm) 0%,var(--cream) 100%);
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;
+  top:-200px;left:50%;transform:translateX(-50%);
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(213,184,147,0.3) 0%,transparent 70%);
+  border-radius:50%;
+}
+.cta-section .section-title{margin:0 auto 1rem;}
+.cta-section .section-sub{margin:0 auto 2.5rem;text-align:center;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--text);color:rgba(245,239,230,0.5);
+  padding:2rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;
+}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--tan);letter-spacing:0}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-content>*{animation:fadeUp 0.8s ease both}
+.hero-eyebrow{animation-delay:0.1s}
+.hero-title{animation-delay:0.2s}
+.hero-sub{animation-delay:0.35s}
+.hero-actions{animation-delay:0.5s}
+.hero-card{animation:fadeUp 1s ease 0.3s both}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Derma<span>Fusion</span></div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="analyse.html" class="nav-cta">Analyse</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Multimodal AI · Explainable Diagnosis</div>
+    <h1 class="hero-title">Skin Intelligence,<br><em>Reimagined</em></h1>
+    <p class="hero-sub">DermaFusion combines deep visual analysis with patient clinical data to deliver transparent, explainable dermatological second opinions — powered by AI, trusted by design.</p>
+    <div class="hero-actions">
+      <a href="analyse.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Begin Analysis
+      </a>
+      <a href="about.html" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="card-label">Analysis Result</div>
+      <div class="card-img-placeholder">🔬</div>
+      <div class="card-diagnosis">Melanocytic Nevi</div>
+      <div class="card-badge">Benign</div>
+      <div class="card-bar-wrap"><div class="card-bar" style="width:83%"></div></div>
+      <div class="card-conf"><span>Confidence</span><span>83.2%</span></div>
+
+      <div class="floating-tag tag-1">
+        <div class="tag-dot" style="background:#1E8449"></div>
+        <span style="font-size:0.65rem;color:#2A1F15">Grad-CAM Active</span>
+      </div>
+      <div class="floating-tag tag-2">
+        <div class="tag-dot" style="background:#617891"></div>
+        <span style="font-size:0.65rem;color:#2A1F15">Metadata Fused</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">10K</div><div class="stat-lbl">Training Images</div></div>
+  <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">Disease Classes</div></div>
+  <div class="stat-item"><div class="stat-num">71%</div><div class="stat-lbl">Test Accuracy</div></div>
+  <div class="stat-item"><div class="stat-num">XAI</div><div class="stat-lbl">Grad-CAM Explainability</div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-eyebrow">Methodology</div>
+  <h2 class="section-title">Three pipelines.<br>One decision.</h2>
+  <p class="section-sub">DermaFusion mirrors how a dermatologist actually reasons — combining what they see with what they know about the patient.</p>
+
+  <div class="hiw-grid">
+    <div class="hiw-card">
+      <div class="hiw-num">01</div>
+      <div class="hiw-icon">👁</div>
+      <div class="hiw-title">Visual Stream</div>
+      <div class="hiw-text">MobileNetV2 extracts 1280-dimensional feature vectors from dermoscopic images after hair removal and colour normalisation preprocessing.</div>
+    </div>
+    <div class="hiw-card">
+      <div class="hiw-num">02</div>
+      <div class="hiw-icon">📋</div>
+      <div class="hiw-title">Clinical Stream</div>
+      <div class="hiw-text">A Multi-Layer Perceptron processes patient age, sex, and anatomical site into a 32-dimensional clinical feature vector — context a clinician would naturally consider.</div>
+    </div>
+    <div class="hiw-card">
+      <div class="hiw-num">03</div>
+      <div class="hiw-icon">🧠</div>
+      <div class="hiw-title">Fusion + Grad-CAM</div>
+      <div class="hiw-text">Both vectors are concatenated and passed through a classifier. Grad-CAM then backpropagates to highlight exactly which pixels drove the prediction.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="classes-section">
+  <div class="section-eyebrow" style="color:var(--tan)">Disease Classification</div>
+  <h2 class="section-title">7 skin conditions.<br>One unified model.</h2>
+  <p class="section-sub">Trained on the HAM10000 dataset — 10,015 dermoscopic images across seven major categories.</p>
+
+  <div class="classes-grid">
+    <div class="class-card">
+      <div class="class-code">NV · Class 0</div>
+      <div class="class-name">Melanocytic Nevi</div>
+      <div class="class-desc">Common mole. Most frequent class in the dataset.</div>
+      <div class="class-sev sev-benign">Benign</div>
+    </div>
+    <div class="class-card">
+      <div class="class-code">MEL · Class 1</div>
+      <div class="class-name">Melanoma</div>
+      <div class="class-desc">Malignant skin cancer. Highest clinical priority.</div>
+      <div class="class-sev sev-urgent">Urgent</div>
+    </div>
+    <div class="class-card">
+      <div class="class-code">BKL · Class 2</div>
+      <div class="class-name">Benign Keratosis</div>
+      <div class="class-desc">Non-cancerous skin growth. Usually harmless.</div>
+      <div class="class-sev sev-benign">Benign</div>
+    </div>
+    <div class="class-card">
+      <div class="class-code">BCC · Class 3</div>
+      <div class="class-name">Basal Cell Carcinoma</div>
+      <div class="class-desc">Most common skin cancer. Slow-growing.</div>
+      <div class="class-sev sev-monitor">Monitor</div>
+    </div>
+    <div class="class-card">
+      <div class="class-code">AKIEC · Class 4</div>
+      <div class="class-name">Actinic Keratoses</div>
+      <div class="class-desc">Pre-cancerous UV-induced lesion.</div>
+      <div class="class-sev sev-monitor">Monitor</div>
+    </div>
+    <div class="class-card">
+      <div class="class-code">VASC · Class 5</div>
+      <div class="class-name">Vascular Lesions</div>
+      <div class="class-desc">Blood vessel origin. Often benign.</div>
+      <div class="class-sev sev-benign">Benign</div>
+    </div>
+    <div class="class-card">
+      <div class="class-code">DF · Class 6</div>
+      <div class="class-name">Dermatofibroma</div>
+      <div class="class-desc">Benign fibrous nodule.</div>
+      <div class="class-sev sev-benign">Benign</div>
+    </div>
+    <div class="class-card" style="display:flex;align-items:center;justify-content:center;background:rgba(213,184,147,0.05)">
+      <a href="analyse.html" class="btn-primary" style="font-size:0.7rem">Run Analysis →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-eyebrow">Get Started</div>
+  <h2 class="section-title">Ready for a second opinion?</h2>
+  <p class="section-sub">Upload a dermoscopic image and receive an AI-assisted classification with visual explanation in seconds.</p>
+  <a href="analyse.html" class="btn-primary" style="font-size:0.8rem;padding:1.1rem 3rem">Begin Your Analysis</a>
+</section>
+
+<footer>
+  <div class="footer-logo">DermaFusion</div>
+  <div>SEM4 Software Engineering · HAM10000 Dataset · MobileNetV2 + MLP Fusion</div>
+  <div>Research Use Only</div>
+</footer>
+
+</body>
+</html>

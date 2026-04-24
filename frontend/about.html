@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DermaFusion — About</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --space:#25344F;--slate:#617891;--tan:#D5B893;
+  --coffee:#6F4D38;--caput:#632024;--cream:#F5EFE6;
+  --warm:#EDE4D6;--text:#2A1F15;--muted:#7A6A5A;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(245,239,230,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(111,77,56,0.15)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--space);letter-spacing:-0.5px;text-decoration:none}
+.nav-logo span{color:var(--coffee)}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-links a{text-decoration:none;font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--coffee)}
+.nav-cta{background:var(--space)!important;color:var(--cream)!important;padding:0.55rem 1.4rem;border-radius:2px}
+
+.page-header{background:linear-gradient(135deg,var(--coffee) 0%,var(--caput) 100%);padding:7rem 4rem 3rem;color:var(--cream);position:relative;overflow:hidden}
+.page-header::after{content:'';position:absolute;right:-5%;top:-30%;width:500px;height:500px;background:radial-gradient(circle,rgba(245,239,230,0.06) 0%,transparent 70%);border-radius:50%}
+.page-eyebrow{font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--tan);margin-bottom:0.8rem;font-weight:500}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:white;letter-spacing:-1px;line-height:1.1}
+
+.section{padding:5rem 4rem;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--coffee);font-weight:500;margin-bottom:0.8rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--space);letter-spacing:-0.5px;line-height:1.1;margin-bottom:1rem}
+.section-body{font-size:0.95rem;color:var(--muted);line-height:1.9;max-width:680px}
+
+/* ARCHITECTURE */
+.arch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(37,52,79,0.08);border-radius:4px;overflow:hidden;margin-top:3rem}
+.arch-card{background:var(--cream);padding:2.5rem 2rem;transition:background 0.2s}
+.arch-card:hover{background:white}
+.arch-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;color:rgba(213,184,147,0.5);line-height:1;margin-bottom:0.5rem}
+.arch-title{font-size:1rem;font-weight:600;color:var(--space);margin-bottom:0.5rem;letter-spacing:0.5px}
+.arch-sub{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--tan);font-weight:500;margin-bottom:0.8rem}
+.arch-text{font-size:0.85rem;color:var(--muted);line-height:1.8}
+
+/* DATA FLOW */
+.flow-section{background:var(--space);padding:5rem 4rem;color:var(--cream)}
+.flow-section .section-title{color:var(--tan)}
+.flow{display:flex;align-items:center;gap:0;margin-top:3rem;overflow-x:auto;padding-bottom:1rem}
+.flow-node{
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  border-radius:4px;padding:1.2rem 1.5rem;text-align:center;flex-shrink:0;min-width:140px;
+}
+.flow-node-icon{font-size:1.5rem;margin-bottom:0.4rem}
+.flow-node-title{font-size:0.78rem;font-weight:500;color:var(--tan);margin-bottom:0.2rem}
+.flow-node-sub{font-size:0.65rem;color:var(--slate);letter-spacing:1px}
+.flow-arrow{color:var(--tan);font-size:1.2rem;padding:0 0.8rem;flex-shrink:0;opacity:0.6}
+
+/* METRICS */
+.metrics-section{padding:5rem 4rem;background:var(--warm)}
+.metrics-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1.5px;background:rgba(37,52,79,0.08);border-radius:4px;overflow:hidden;margin-top:3rem}
+.metric-card{background:var(--cream);padding:1.5rem 1rem;text-align:center}
+.metric-code{font-size:0.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate);margin-bottom:0.4rem}
+.metric-name{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--space);margin-bottom:0.8rem;line-height:1.2}
+.metric-f1{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--coffee)}
+.metric-bar{height:3px;background:var(--warm);border-radius:2px;margin-top:0.5rem;overflow:hidden}
+.metric-fill{height:100%;background:linear-gradient(90deg,var(--tan),var(--coffee));border-radius:2px}
+.metric-sev{font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.4rem}
+
+/* TECH STACK */
+.tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
+.tech-card{background:white;border:1px solid rgba(37,52,79,0.08);border-radius:4px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:box-shadow 0.2s}
+.tech-card:hover{box-shadow:0 4px 20px rgba(37,52,79,0.08)}
+.tech-icon{font-size:1.5rem;flex-shrink:0}
+.tech-name{font-size:0.85rem;font-weight:500;color:var(--space);margin-bottom:0.2rem}
+.tech-desc{font-size:0.78rem;color:var(--muted);line-height:1.6}
+
+/* TEAM */
+.team-section{padding:5rem 4rem}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.team-card{background:white;border-radius:4px;padding:2rem;text-align:center;border:1px solid rgba(37,52,79,0.06);transition:box-shadow 0.2s}
+.team-card:hover{box-shadow:0 8px 30px rgba(37,52,79,0.1)}
+.team-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--tan),var(--coffee));margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--space);margin-bottom:0.2rem}
+.team-role{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--slate)}
+
+footer{background:var(--text);color:rgba(245,239,230,0.4);padding:1.5rem 4rem;display:flex;align-items:center;justify-content:space-between;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;margin-top:0}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--tan);letter-spacing:0}
+
+.btn-primary{display:inline-flex;align-items:center;gap:0.6rem;background:var(--space);color:var(--cream);text-decoration:none;padding:0.9rem 2rem;font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;border-radius:2px;transition:all 0.25s;font-family:'Jost',sans-serif;margin-top:2rem}
+.btn-primary:hover{background:var(--coffee);transform:translateY(-2px)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Derma<span>Fusion</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="analyse.html" class="nav-cta">Analyse</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">About the Project</div>
+  <h1 class="page-title">Built for transparency.<br>Designed for trust.</h1>
+</div>
+
+<!-- OVERVIEW -->
+<div class="section">
+  <div class="section-eyebrow">Overview</div>
+  <h2 class="section-title">What is DermaFusion?</h2>
+  <p class="section-body">DermaFusion is a multimodal, explainable AI diagnostic support system developed as a Software Engineering research project. It addresses three critical gaps in existing AI dermatology tools — the black-box problem, context blindness, and demographic bias — by fusing visual deep learning with structured clinical metadata and Grad-CAM explainability.</p>
+  <a href="analyse.html" class="btn-primary">Try the Analysis Tool →</a>
+
+  <!-- Architecture -->
+  <div style="margin-top:4rem">
+    <div class="section-eyebrow">Architecture</div>
+    <h2 class="section-title">Three-pipeline design</h2>
+  </div>
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="arch-num">01</div>
+      <div class="arch-sub">Visual Stream</div>
+      <div class="arch-title">MobileNetV2 CNN</div>
+      <div class="arch-text">Extracts 1280-dimensional feature vectors from dermoscopic images. Preprocessing includes black-hat morphological hair removal and channel-standardised colour normalisation to reduce device and skin-tone bias.</div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">02</div>
+      <div class="arch-sub">Clinical Stream</div>
+      <div class="arch-title">Multi-Layer Perceptron</div>
+      <div class="arch-text">Encodes patient age (normalised), biological sex (one-hot, 3 dims), and anatomical site (one-hot, 15 dims) into a 32-dimensional clinical feature vector — the context a clinician naturally considers.</div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-num">03</div>
+      <div class="arch-sub">Fusion + XAI</div>
+      <div class="arch-title">Concatenation + Grad-CAM</div>
+      <div class="arch-text">Both feature vectors are concatenated (1312-dim) and passed through fully-connected layers. Grad-CAM backpropagates the prediction to the final convolutional layer, generating a pixel-level attention heatmap.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA FLOW -->
+<div class="flow-section">
+  <div class="section-eyebrow" style="color:var(--tan)">Data Flow</div>
+  <h2 class="section-title">Input → Output pipeline</h2>
+  <div class="flow">
+    <div class="flow-node"><div class="flow-node-icon">🖼</div><div class="flow-node-title">Image</div><div class="flow-node-sub">JPG/PNG</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-node-icon">✂️</div><div class="flow-node-title">Preprocess</div><div class="flow-node-sub">Hair removal</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-node-icon">🧠</div><div class="flow-node-title">MobileNetV2</div><div class="flow-node-sub">1280-dim</div></div>
+    <div class="flow-arrow">⊕</div>
+    <div class="flow-node"><div class="flow-node-icon">📋</div><div class="flow-node-title">MLP</div><div class="flow-node-sub">19→32-dim</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-node-icon">🔀</div><div class="flow-node-title">Fusion</div><div class="flow-node-sub">1312-dim</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-node-icon">🎯</div><div class="flow-node-title">Classifier</div><div class="flow-node-sub">7 classes</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-node-icon">🗺</div><div class="flow-node-title">Grad-CAM</div><div class="flow-node-sub">Heatmap</div></div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="metrics-section">
+  <div class="section-eyebrow">Performance</div>
+  <h2 class="section-title" style="color:var(--space)">Test set results</h2>
+  <p style="font-size:0.9rem;color:var(--muted);margin-top:0.5rem">Overall accuracy: <strong>71%</strong> · 10-epoch training on HAM10000 · CPU-only · MobileNetV2 (no pretrained weights)</p>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-code">NV</div><div class="metric-name">Melanocytic Nevi</div><div class="metric-f1">0.88</div><div class="metric-bar"><div class="metric-fill" style="width:88%"></div></div><div class="metric-sev" style="color:#1E8449">Benign</div></div>
+    <div class="metric-card"><div class="metric-code">MEL</div><div class="metric-name">Melanoma</div><div class="metric-f1">0.41</div><div class="metric-bar"><div class="metric-fill" style="width:41%"></div></div><div class="metric-sev" style="color:#C0504D">Urgent</div></div>
+    <div class="metric-card"><div class="metric-code">BKL</div><div class="metric-name">Benign Keratosis</div><div class="metric-f1">0.31</div><div class="metric-bar"><div class="metric-fill" style="width:31%"></div></div><div class="metric-sev" style="color:#1E8449">Benign</div></div>
+    <div class="metric-card"><div class="metric-code">BCC</div><div class="metric-name">Basal Cell Ca.</div><div class="metric-f1">0.32</div><div class="metric-bar"><div class="metric-fill" style="width:32%"></div></div><div class="metric-sev" style="color:#C4956A">Monitor</div></div>
+    <div class="metric-card"><div class="metric-code">AKIEC</div><div class="metric-name">Actinic Ker.</div><div class="metric-f1">0.11</div><div class="metric-bar"><div class="metric-fill" style="width:11%"></div></div><div class="metric-sev" style="color:#C4956A">Monitor</div></div>
+    <div class="metric-card"><div class="metric-code">VASC</div><div class="metric-name">Vascular</div><div class="metric-f1">0.00</div><div class="metric-bar"><div class="metric-fill" style="width:1%"></div></div><div class="metric-sev" style="color:#1E8449">Benign</div></div>
+    <div class="metric-card"><div class="metric-code">DF</div><div class="metric-name">Dermatofibroma</div><div class="metric-f1">0.00</div><div class="metric-bar"><div class="metric-fill" style="width:1%"></div></div><div class="metric-sev" style="color:#1E8449">Benign</div></div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<div class="section">
+  <div class="section-eyebrow">Technology</div>
+  <h2 class="section-title">Built with</h2>
+  <div class="tech-grid">
+    <div class="tech-card"><div class="tech-icon">🔥</div><div><div class="tech-name">PyTorch + TorchVision</div><div class="tech-desc">Deep learning framework. MobileNetV2 backbone from torchvision.models with custom fusion head.</div></div></div>
+    <div class="tech-card"><div class="tech-icon">🗺</div><div><div class="tech-name">Grad-CAM (Custom)</div><div class="tech-desc">Built-in gradient-based class activation mapping using PyTorch hooks. No external library required.</div></div></div>
+    <div class="tech-card"><div class="tech-icon">👁</div><div><div class="tech-name">OpenCV</div><div class="tech-desc">Hair removal via black-hat morphological transform and inpainting. Colour normalisation for skin-tone equity.</div></div></div>
+    <div class="tech-card"><div class="tech-icon">🌐</div><div><div class="tech-name">Flask</div><div class="tech-desc">Lightweight Python web server. REST API endpoint for inference. Serves HTML/CSS/JS frontend.</div></div></div>
+    <div class="tech-card"><div class="tech-icon">📊</div><div><div class="tech-name">HAM10000 Dataset</div><div class="tech-desc">10,015 dermoscopic images across 7 classes. ISIC Archive. Train/Val/Test split 75/15/10.</div></div></div>
+    <div class="tech-card"><div class="tech-icon">📐</div><div><div class="tech-name">scikit-learn</div><div class="tech-desc">Classification report — precision, recall, F1-score per class. Used for test evaluation only.</div></div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">DermaFusion</div>
+  <div>SEM4 Software Engineering · HAM10000 Dataset · MobileNetV2 + MLP</div>
+  <div>Research Use Only</div>
+</footer>
+
+</body>
+</html>

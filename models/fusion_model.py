@@ -47,16 +47,7 @@ class MetadataModel(nn.Module):
 
 # ── Fusion model ─────────────────────────────────────────────────────────────
 class DermaFusionModel(nn.Module):
-    """
-    Full multimodal model.
-
-    Forward signature:
-        logits = model(image, metadata)
-
-    Args:
-        pretrained : use ImageNet weights for EfficientNet (recommended)
-        dropout    : dropout rate before the final classifier
-    """
+   
 
     def __init__(self, pretrained=True, dropout=0.4):
         super().__init__()

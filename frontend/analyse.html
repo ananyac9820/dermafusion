@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DermaFusion — Analyse</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --space:#25344F;--slate:#617891;--tan:#D5B893;
+  --coffee:#6F4D38;--caput:#632024;--cream:#F5EFE6;
+  --warm:#EDE4D6;--text:#2A1F15;--muted:#7A6A5A;
+  --white:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 4rem;
+  background:rgba(245,239,230,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(111,77,56,0.15);
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--space);letter-spacing:-0.5px;text-decoration:none}
+.nav-logo span{color:var(--coffee)}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-links a{text-decoration:none;font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:500;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--coffee)}
+.nav-cta{background:var(--space)!important;color:var(--cream)!important;padding:0.55rem 1.4rem;border-radius:2px}
+
+/* PAGE HEADER */
+.page-header{
+  background:linear-gradient(135deg,var(--space) 0%,#2E4060 100%);
+  padding:7rem 4rem 3rem;color:var(--cream);
+  position:relative;overflow:hidden;
+}
+.page-header::after{
+  content:'';position:absolute;right:-5%;bottom:-50%;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(213,184,147,0.1) 0%,transparent 70%);
+  border-radius:50%;
+}
+.page-eyebrow{font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--tan);margin-bottom:0.8rem;font-weight:500}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:white;letter-spacing:-1px;line-height:1.1}
+.page-sub{font-size:0.9rem;color:rgba(213,184,147,0.7);margin-top:0.8rem;font-weight:300}
+
+/* MAIN LAYOUT */
+.main{padding:3rem 4rem;display:grid;grid-template-columns:1fr 1.1fr;gap:2.5rem;max-width:1400px;margin:0 auto}
+
+/* PANEL */
+.panel{background:white;border-radius:6px;padding:2rem;box-shadow:0 4px 30px rgba(37,52,79,0.06);border:1px solid rgba(111,77,56,0.08)}
+.panel-label{font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--slate);margin-bottom:1.5rem;padding-bottom:0.8rem;border-bottom:1px solid var(--warm)}
+
+/* UPLOAD ZONE */
+.upload-zone{
+  border:2px dashed rgba(111,77,56,0.25);border-radius:4px;
+  padding:3rem 2rem;text-align:center;cursor:pointer;
+  transition:all 0.25s;background:var(--cream);position:relative;
+}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--coffee);background:rgba(213,184,147,0.1)}
+.upload-icon{font-size:2.5rem;margin-bottom:0.8rem}
+.upload-title{font-size:0.9rem;font-weight:500;color:var(--space);margin-bottom:0.3rem}
+.upload-sub{font-size:0.78rem;color:var(--muted)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* IMAGE PREVIEW */
+#preview-container{display:none;margin-top:1.2rem}
+#preview-img{width:100%;border-radius:4px;max-height:300px;object-fit:contain;background:var(--cream)}
+.preview-meta{display:flex;justify-content:space-between;margin-top:0.6rem;font-size:0.72rem;color:var(--muted)}
+
+/* FORM */
+.form-group{margin-bottom:1.4rem}
+.form-label{font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:0.5rem;font-weight:500}
+.form-input,.form-select{
+  width:100%;padding:0.75rem 1rem;
+  border:1px solid rgba(37,52,79,0.15);border-radius:2px;
+  background:var(--cream);color:var(--text);
+  font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:300;
+  transition:border-color 0.2s;outline:none;
+}
+.form-input:focus,.form-select:focus{border-color:var(--coffee)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* SLIDER */
+.slider-wrap{display:flex;align-items:center;gap:1rem}
+.slider-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:700;color:var(--coffee);
+  min-width:3rem;text-align:center;
+}
+input[type=range]{
+  flex:1;-webkit-appearance:none;height:3px;
+  background:var(--warm);border-radius:2px;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:16px;height:16px;
+  border-radius:50%;background:var(--coffee);cursor:pointer;
+  transition:transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+
+/* BUTTONS */
+.btn-run{
+  width:100%;padding:1.1rem;
+  background:linear-gradient(135deg,var(--space) 0%,var(--coffee) 100%);
+  color:var(--cream);border:none;border-radius:2px;
+  font-family:'Jost',sans-serif;font-size:0.78rem;
+  letter-spacing:3px;text-transform:uppercase;font-weight:500;
+  cursor:pointer;transition:all 0.25s;margin-top:1rem;
+}
+.btn-run:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,52,79,0.25)}
+.btn-run:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+/* DISCLAIMER */
+.disclaimer{
+  background:rgba(99,32,36,0.06);border:1px solid rgba(99,32,36,0.15);
+  border-radius:4px;padding:0.9rem 1.2rem;font-size:0.76rem;
+  color:#8A5555;line-height:1.6;margin-top:1rem;
+}
+
+/* RESULTS */
+#results-panel{display:none}
+.result-hero{
+  background:linear-gradient(135deg,var(--space) 0%,#1A2C45 100%);
+  border-radius:4px;padding:2rem;margin-bottom:1.2rem;
+  position:relative;overflow:hidden;
+}
+.result-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--tan),var(--coffee),var(--caput));
+}
+.result-sev{
+  display:inline-block;font-size:0.62rem;letter-spacing:2.5px;
+  text-transform:uppercase;padding:0.3rem 0.8rem;
+  border-radius:2px;margin-bottom:0.8rem;font-weight:500;
+}
+.result-name{
+  font-family:'Cormorant Garamond',serif;font-size:2rem;
+  font-weight:700;color:var(--tan);line-height:1.1;margin-bottom:0.3rem;
+}
+.result-code{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--slate);margin-bottom:1rem}
+.result-desc{font-size:0.85rem;color:rgba(213,184,147,0.6);line-height:1.7}
+.result-conf{
+  text-align:right;
+}
+.conf-big{
+  font-family:'Cormorant Garamond',serif;font-size:3.5rem;
+  font-weight:700;color:white;line-height:1;
+}
+.conf-sub{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--slate)}
+.result-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+
+/* IMAGE COMPARISON */
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.img-box{background:var(--warm);border-radius:4px;overflow:hidden}
+.img-box img{width:100%;display:block;max-height:240px;object-fit:contain}
+.img-box-label{font-size:0.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate);padding:0.5rem 0.8rem;text-align:center;background:white;border-top:1px solid var(--warm)}
+
+/* CONFIDENCE BARS */
+.conf-list{display:flex;flex-direction:column;gap:0.7rem}
+.conf-row{display:flex;align-items:center;gap:0.8rem}
+.conf-name{font-size:0.78rem;color:var(--text);width:155px;flex-shrink:0}
+.conf-name.top{font-weight:600;color:var(--coffee)}
+.conf-track{flex:1;height:5px;background:var(--warm);border-radius:3px;overflow:hidden}
+.conf-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--tan),var(--coffee));transition:width 1s ease}
+.conf-pct{font-size:0.75rem;color:var(--muted);width:40px;text-align:right;flex-shrink:0}
+
+/* LOADING */
+#loading{display:none;padding:3rem;text-align:center}
+.spinner{
+  width:40px;height:40px;border-radius:50%;
+  border:3px solid var(--warm);border-top-color:var(--coffee);
+  animation:spin 0.8s linear infinite;margin:0 auto 1rem;
+}
+.loading-text{font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--slate)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn 0.5s ease both}
+
+/* EMPTY STATE */
+.empty-state{
+  padding:4rem 2rem;text-align:center;
+  font-size:0.85rem;color:var(--muted);line-height:1.8;
+}
+.empty-icon{font-size:2.5rem;margin-bottom:0.8rem;opacity:0.4}
+
+footer{
+  background:var(--text);color:rgba(245,239,230,0.4);
+  padding:1.5rem 4rem;display:flex;align-items:center;
+  justify-content:space-between;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;
+  margin-top:4rem;
+}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--tan);letter-spacing:0}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Derma<span>Fusion</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="analyse.html" class="active nav-cta">Analyse</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">AI-Powered Analysis Tool</div>
+  <h1 class="page-title">Lesion Analysis</h1>
+  <p class="page-sub">Upload a dermoscopic image · Enter patient data · Receive an explainable AI classification</p>
+</div>
+
+<div class="main">
+
+  <!-- LEFT: INPUTS -->
+  <div>
+    <!-- Upload -->
+    <div class="panel" style="margin-bottom:1.5rem">
+      <div class="panel-label">01 — Image Upload</div>
+      <div class="upload-zone" id="drop-zone">
+        <input type="file" id="file-input" accept="image/jpeg,image/png">
+        <div class="upload-icon">🔬</div>
+        <div class="upload-title">Drop your image here</div>
+        <div class="upload-sub">JPG or PNG · Dermoscopic image preferred</div>
+      </div>
+      <div id="preview-container">
+        <img id="preview-img" alt="Preview">
+        <div class="preview-meta">
+          <span id="file-name">—</span>
+          <span id="file-size">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient Data -->
+    <div class="panel">
+      <div class="panel-label">02 — Patient Clinical Data</div>
+
+      <div class="form-group">
+        <label class="form-label">Patient Age</label>
+        <div class="slider-wrap">
+          <span class="slider-val" id="age-display">45</span>
+          <input type="range" id="age-slider" min="0" max="90" value="45">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Biological Sex</label>
+          <select class="form-select" id="sex-select">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Anatomical Site</label>
+          <select class="form-select" id="site-select">
+            <option value="scalp">Scalp</option>
+            <option value="ear">Ear</option>
+            <option value="face">Face</option>
+            <option value="back">Back</option>
+            <option value="trunk">Trunk</option>
+            <option value="chest">Chest</option>
+            <option value="upper extremity">Upper Extremity</option>
+            <option value="abdomen">Abdomen</option>
+            <option value="lower extremity">Lower Extremity</option>
+            <option value="genital">Genital</option>
+            <option value="neck">Neck</option>
+            <option value="hand">Hand</option>
+            <option value="foot">Foot</option>
+            <option value="acral">Acral</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-run" id="run-btn" disabled>Run Analysis</button>
+
+      <div class="disclaimer">
+        ⚠ <strong>Disclaimer</strong> — DermaFusion is a research decision-support tool. Results must not replace clinical diagnosis by a qualified dermatologist.
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: RESULTS -->
+  <div>
+    <div class="panel">
+      <div class="panel-label">03 — Analysis Results</div>
+
+      <!-- Empty state -->
+      <div id="empty-state">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          Upload an image and enter patient details,<br>then click <strong>Run Analysis</strong> to begin.
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loading-text">Processing image...</div>
+      </div>
+
+      <!-- Results -->
+      <div id="results-panel">
+        <div class="result-hero fade-in">
+          <div class="result-top">
+            <div>
+              <div class="result-sev" id="result-sev"></div>
+              <div class="result-name" id="result-name"></div>
+              <div class="result-code" id="result-code"></div>
+              <div class="result-desc" id="result-desc"></div>
+            </div>
+            <div class="result-conf">
+              <div class="conf-big" id="result-conf"></div>
+              <div class="conf-sub">Model Confidence</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="img-grid fade-in">
+          <div class="img-box">
+            <img id="processed-img" alt="Preprocessed">
+            <div class="img-box-label">Preprocessed Input</div>
+          </div>
+          <div class="img-box">
+            <img id="heatmap-img" alt="Grad-CAM">
+            <div class="img-box-label">Grad-CAM Attention Map</div>
+          </div>
+        </div>
+
+        <div class="panel-label" style="margin-bottom:1rem">Confidence — All Classes</div>
+        <div class="conf-list" id="conf-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">DermaFusion</div>
+  <div>SEM4 Software Engineering · MobileNetV2 + MLP Fusion</div>
+  <div>Research Use Only</div>
+</footer>
+
+<script>
+const CLASS_LABELS = {
+  nv:'Melanocytic Nevi',mel:'Melanoma',bkl:'Benign Keratosis',
+  bcc:'Basal Cell Carcinoma',akiec:'Actinic Keratoses',
+  vasc:'Vascular Lesions',df:'Dermatofibroma'
+};
+const CLASS_INFO = {
+  nv:'Common benign mole. Monitor for changes in shape or colour.',
+  mel:'Malignant melanoma detected. Requires urgent review by a dermatologist.',
+  bkl:'Non-cancerous skin growth. Usually harmless.',
+  bcc:'Most common skin cancer. Slow-growing, rarely spreads.',
+  akiec:'Pre-cancerous lesion caused by prolonged UV exposure.',
+  vasc:'Vascular lesion of blood vessel origin. Often benign.',
+  df:'Benign fibrous skin nodule. Usually harmless.'
+};
+const CLASS_SEV = {
+  nv:{label:'Benign',bg:'rgba(30,132,73,0.12)',color:'#1E8449',border:'rgba(30,132,73,0.3)'},
+  mel:{label:'Urgent',bg:'rgba(99,32,36,0.12)',color:'#C0504D',border:'rgba(99,32,36,0.4)'},
+  bkl:{label:'Benign',bg:'rgba(30,132,73,0.12)',color:'#1E8449',border:'rgba(30,132,73,0.3)'},
+  bcc:{label:'Monitor',bg:'rgba(111,77,56,0.12)',color:'#C4956A',border:'rgba(111,77,56,0.4)'},
+  akiec:{label:'Monitor',bg:'rgba(111,77,56,0.12)',color:'#C4956A',border:'rgba(111,77,56,0.4)'},
+  vasc:{label:'Benign',bg:'rgba(30,132,73,0.12)',color:'#1E8449',border:'rgba(30,132,73,0.3)'},
+  df:{label:'Benign',bg:'rgba(30,132,73,0.12)',color:'#1E8449',border:'rgba(30,132,73,0.3)'}
+};
+
+// Age slider
+const slider = document.getElementById('age-slider');
+const ageDisplay = document.getElementById('age-display');
+slider.addEventListener('input', () => ageDisplay.textContent = slider.value);
+
+// File upload
+const fileInput = document.getElementById('file-input');
+const dropZone  = document.getElementById('drop-zone');
+const runBtn    = document.getElementById('run-btn');
+let uploadedFile = null;
+
+function handleFile(file) {
+  if (!file) return;
+  uploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('preview-img').src = e.target.result;
+    document.getElementById('preview-container').style.display = 'block';
+    document.getElementById('file-name').textContent = file.name;
+    document.getElementById('file-size').textContent = (file.size/1024).toFixed(1) + ' KB';
+    runBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('dragover');
+  handleFile(e.dataTransfer.files[0]);
+});
+
+// Run analysis
+runBtn.addEventListener('click', async () => {
+  if (!uploadedFile) return;
+
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('results-panel').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+  runBtn.disabled = true;
+
+  const steps = ['Preprocessing image...','Running inference...','Generating Grad-CAM...'];
+  let s = 0;
+  const loadText = document.getElementById('loading-text');
+  const stepInterval = setInterval(() => {
+    if (s < steps.length - 1) loadText.textContent = steps[++s];
+  }, 1200);
+
+  const fd = new FormData();
+  fd.append('image', uploadedFile);
+  fd.append('age', slider.value);
+  fd.append('sex', document.getElementById('sex-select').value);
+  fd.append('site', document.getElementById('site-select').value);
+
+  try {
+    const res  = await fetch('/api/analyse', { method: 'POST', body: fd });
+    const data = await res.json();
+    clearInterval(stepInterval);
+    showResults(data);
+  } catch(err) {
+    clearInterval(stepInterval);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'block';
+    document.getElementById('empty-state').innerHTML =
+      '<div class="empty-state"><div class="empty-icon">⚠️</div>Analysis failed. Please ensure the server is running.</div>';
+    runBtn.disabled = false;
+  }
+});
+
+function showResults(data) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('results-panel').style.display = 'block';
+
+  const key  = data.prediction;
+  const sev  = CLASS_SEV[key];
+  const conf = (data.confidence * 100).toFixed(1);
+
+  const sevEl = document.getElementById('result-sev');
+  sevEl.textContent = sev.label;
+  sevEl.style.cssText = `background:${sev.bg};color:${sev.color};border:1px solid ${sev.border}`;
+
+  document.getElementById('result-name').textContent = CLASS_LABELS[key];
+  document.getElementById('result-code').textContent = key.toUpperCase() + ' · AI Classification';
+  document.getElementById('result-desc').textContent = CLASS_INFO[key];
+  document.getElementById('result-conf').textContent = conf + '%';
+
+  document.getElementById('processed-img').src = 'data:image/jpeg;base64,' + data.processed_image;
+  document.getElementById('heatmap-img').src   = 'data:image/jpeg;base64,' + data.heatmap_image;
+
+  // Confidence bars
+  const sorted = Object.entries(data.probabilities).sort((a,b) => b[1]-a[1]);
+  const list   = document.getElementById('conf-list');
+  list.innerHTML = '';
+  sorted.forEach(([k, p]) => {
+    const pct  = (p * 100).toFixed(1);
+    const isTop = k === key;
+    const row   = document.createElement('div');
+    row.className = 'conf-row';
+    row.innerHTML = `
+      <div class="conf-name${isTop?' top':''}">${CLASS_LABELS[k]}</div>
+      <div class="conf-track"><div class="conf-fill" style="width:0%" data-pct="${pct}"></div></div>
+      <div class="conf-pct">${pct}%</div>`;
+    list.appendChild(row);
+  });
+  // Animate bars
+  setTimeout(() => {
+    document.querySelectorAll('.conf-fill').forEach(el => {
+      el.style.width = el.dataset.pct + '%';
+    });
+  }, 100);
+
+  runBtn.disabled = false;
+}
+</script>
+</body>
+</html>
